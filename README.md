@@ -1,6 +1,6 @@
 # flutter_csv
 
-A powerful CSV library for Dart/Flutter with builder pattern, import/export capabilities, header detection, JSON and MessagePack conversion.
+A CSV library for Dart/Flutter with builder pattern, import/export capabilities, header detection, JSON and MessagePack conversion.
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_csv)](https://pub.dev/packages/flutter_csv)
 [![License](https://img.shields.io/badge/license-MIT--Attribution-blue)](LICENSE)

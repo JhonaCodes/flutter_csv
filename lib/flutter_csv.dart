@@ -1,4 +1,4 @@
-/// A powerful CSV library for Dart/Flutter with builder pattern,
+/// A CSV library for Dart/Flutter with builder pattern,
 /// import/export capabilities, header detection, JSON and MessagePack conversion.
 ///
 /// ## Features
