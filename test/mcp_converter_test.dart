@@ -6,7 +6,7 @@ void main() {
     const converter = McpConverter();
 
     test('toMcp wraps content correctly', () {
-      final csv = 'a,b\n1,2';
+      const csv = 'a,b\n1,2';
       final json = converter.toMcp(csv, uri: 'test://uri', name: 'test.csv');
 
       expect(json, contains('"mimeType":"text/csv"'));
@@ -16,13 +16,13 @@ void main() {
     });
 
     test('fromMcp extracts content from simple resource', () {
-      final json = '{"mimeType": "text/csv", "text": "a,b\\n1,2"}';
+      const json = '{"mimeType": "text/csv", "text": "a,b\\n1,2"}';
       final csv = converter.fromMcp(json);
       expect(csv, equals('a,b\n1,2'));
     });
 
     test('fromMcp extracts content from list wrapper', () {
-      final json =
+      const json =
           '{"contents": [{"mimeType": "text/csv", "text": "a,b\\n1,2"}]}';
       final csv = converter.fromMcp(json);
       expect(csv, equals('a,b\n1,2'));

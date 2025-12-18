@@ -68,7 +68,7 @@ class McpConverter {
       return _extractFromList(data);
     }
 
-    throw FormatException('Could not find CSV text in MCP structure');
+    throw const FormatException('Could not find CSV text in MCP structure');
   }
 
   String _extractFromList(List list) {
@@ -87,6 +87,6 @@ class McpConverter {
       return first['text'] as String;
     }
 
-    throw FormatException('No valid text resource found in list');
+    throw const FormatException('No valid text resource found in list');
   }
 }

@@ -23,7 +23,7 @@ class McpSchemaConverter {
   /// - required (true/false)
   List<Map<String, dynamic>> convertTools(CsvDocument document) {
     if (!document.hasHeaders) {
-      throw FormatException(
+      throw const FormatException(
           'CSV must have headers to be converted to MCP Tools');
     }
 
@@ -91,7 +91,7 @@ class McpSchemaConverter {
   /// - description (optional)
   List<Map<String, dynamic>> convertResources(CsvDocument document) {
     if (!document.hasHeaders) {
-      throw FormatException(
+      throw const FormatException(
           'CSV must have headers to be converted to MCP Resources');
     }
 
@@ -147,7 +147,7 @@ class McpSchemaConverter {
   /// - content
   List<Map<String, dynamic>> convertPrompts(CsvDocument document) {
     if (!document.hasHeaders) {
-      throw FormatException(
+      throw const FormatException(
           'CSV must have headers to be converted to MCP Prompts');
     }
 
