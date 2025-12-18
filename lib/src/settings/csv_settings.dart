@@ -3,7 +3,6 @@
 /// This class provides flexible configuration for CSV operations,
 /// addressing common issues like EOL handling (fixes issue #74, #4, #30).
 final class CsvSettings {
-
   const CsvSettings({
     this.fieldDelimiter = ',',
     this.textDelimiter = '"',
@@ -17,6 +16,7 @@ final class CsvSettings {
     this.skipEmptyLines = true,
     this.allowInvalid = true,
   }) : textEndDelimiter = textEndDelimiter ?? textDelimiter;
+
   /// Field separator (default: ',')
   final String fieldDelimiter;
 

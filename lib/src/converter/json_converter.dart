@@ -3,7 +3,6 @@ import '../settings/csv_settings.dart';
 
 /// Converts CSV data to and from JSON format.
 final class CsvToJsonConverter {
-
   const CsvToJsonConverter({
     this.settings = const CsvSettings(),
     this.headers,
@@ -14,9 +13,8 @@ final class CsvToJsonConverter {
   /// Converts CSV rows to JSON string
   String convert(List<List<Object?>> rows, {bool pretty = false}) {
     final maps = _toMaps(rows);
-    final encoder = pretty
-        ? const JsonEncoder.withIndent('  ')
-        : const JsonEncoder();
+    final encoder =
+        pretty ? const JsonEncoder.withIndent('  ') : const JsonEncoder();
     return encoder.convert(maps);
   }
 
@@ -30,7 +28,8 @@ final class CsvToJsonConverter {
 
   List<String> _generateHeaders(List<List<Object?>> rows) {
     if (rows.isEmpty) return [];
-    final maxColumns = rows.fold<int>(0, (max, row) => row.length > max ? row.length : max);
+    final maxColumns =
+        rows.fold<int>(0, (max, row) => row.length > max ? row.length : max);
     return List.generate(maxColumns, (i) => 'column_${i + 1}');
   }
 
@@ -51,7 +50,6 @@ final class CsvToJsonConverter {
 
 /// Converts JSON data to CSV format
 final class JsonToCsvConverter {
-
   const JsonToCsvConverter({this.settings = const CsvSettings()});
   final CsvSettings settings;
 
@@ -89,14 +87,18 @@ final class JsonToCsvConverter {
 
     // List of simple values or nested lists
     if (list.first is List) {
-      return (null, list.map((e) => (e as List).map(_convertValue).toList()).toList());
+      return (
+        null,
+        list.map((e) => (e as List).map(_convertValue).toList()).toList()
+      );
     }
 
     // Single row of values
     return (null, [list.map(_convertValue).toList()]);
   }
 
-  (List<String>?, List<List<Object?>>) _convertSingleMap(Map<String, dynamic> map) {
+  (List<String>?, List<List<Object?>>) _convertSingleMap(
+      Map<String, dynamic> map) {
     final headers = map.keys.toList();
     final row = headers.map((key) => _convertValue(map[key])).toList();
     return (headers, [row]);
@@ -104,11 +106,11 @@ final class JsonToCsvConverter {
 
   Object? _convertValue(dynamic value) => switch (value) {
         null => null,
-    final String s => s,
+        final String s => s,
         final num n => n,
-    final bool b => b.toString(),
-    final List l => l.map(_convertValue).join(', '),
-    final Map m => json.encode(m),
+        final bool b => b.toString(),
+        final List l => l.map(_convertValue).join(', '),
+        final Map m => json.encode(m),
         _ => value.toString(),
       };
 }

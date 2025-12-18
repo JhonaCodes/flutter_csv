@@ -163,8 +163,10 @@ void main() {
       });
 
       test('sanitizes with different modes', () {
-        final minimal = FlutterCsv.sanitize('hello', mode: SanitizeMode.minimal);
-        final quoteAll = FlutterCsv.sanitize('hello', mode: SanitizeMode.quoteAll);
+        final minimal =
+            FlutterCsv.sanitize('hello', mode: SanitizeMode.minimal);
+        final quoteAll =
+            FlutterCsv.sanitize('hello', mode: SanitizeMode.quoteAll);
 
         expect(minimal, 'hello');
         expect(quoteAll, '"hello"');

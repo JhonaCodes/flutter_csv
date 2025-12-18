@@ -24,7 +24,6 @@ enum CsvExportFormat {
 
 /// Result of an export operation
 final class ExportResult {
-
   const ExportResult({
     required this.content,
     required this.bytes,
@@ -32,6 +31,7 @@ final class ExportResult {
     required this.mimeType,
     required this.encoding,
   });
+
   /// The exported content as string
   final String content;
 
@@ -173,7 +173,8 @@ final class CsvExporter {
   }) async* {
     var isFirst = true;
 
-    for (final chunk in exportInChunks(document, chunkSize: chunkSize, format: format)) {
+    for (final chunk
+        in exportInChunks(document, chunkSize: chunkSize, format: format)) {
       if (isFirst && includeBomAtStart && encoding == utf8) {
         yield Uint8List.fromList([0xEF, 0xBB, 0xBF, ...encoding.encode(chunk)]);
         isFirst = false;
@@ -183,7 +184,8 @@ final class CsvExporter {
     }
   }
 
-  static CsvSettings _settingsForFormat(CsvExportFormat format, CsvSettings base) {
+  static CsvSettings _settingsForFormat(
+      CsvExportFormat format, CsvSettings base) {
     return switch (format) {
       CsvExportFormat.csv => base,
       CsvExportFormat.tsv => CsvSettings.tsv,
@@ -253,6 +255,7 @@ extension CsvDocumentExportExtension on CsvDocument {
     int chunkSize = 1000,
     CsvExportFormat format = CsvExportFormat.csv,
   }) {
-    return CsvExporter.exportInChunks(this, chunkSize: chunkSize, format: format);
+    return CsvExporter.exportInChunks(this,
+        chunkSize: chunkSize, format: format);
   }
 }

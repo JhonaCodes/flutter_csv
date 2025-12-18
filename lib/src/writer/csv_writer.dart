@@ -3,7 +3,6 @@ import '../sanitizer/csv_sanitizer.dart';
 
 /// Converts List<List> data structures into CSV strings.
 final class CsvWriter {
-
   CsvWriter({this.settings = const CsvSettings()})
       : _sanitizer = CsvSanitizer(
           settings: settings,

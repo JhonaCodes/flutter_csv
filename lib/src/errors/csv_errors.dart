@@ -1,6 +1,5 @@
 /// Base exception for CSV operations
 sealed class CsvException implements Exception {
-
   const CsvException(this.message, {this.line, this.column});
   final String message;
   final int? line;
@@ -8,8 +7,9 @@ sealed class CsvException implements Exception {
 
   @override
   String toString() {
-    final location =
-        line != null ? ' at line $line${column != null ? ', column $column' : ''}' : '';
+    final location = line != null
+        ? ' at line $line${column != null ? ', column $column' : ''}'
+        : '';
     return '$runtimeType: $message$location';
   }
 }
@@ -50,7 +50,8 @@ enum SettingsError {
   eolNull('EOL cannot be null'),
   fieldDelimiterNull('Field delimiter cannot be null'),
   textDelimiterNull('Text delimiter cannot be null'),
-  delimiterConflict('Delimiters must be distinct and cannot be prefixes of each other'),
+  delimiterConflict(
+      'Delimiters must be distinct and cannot be prefixes of each other'),
   emptyDelimiter('Delimiter cannot be empty');
 
   final String message;
@@ -107,7 +108,8 @@ final class SettingsValidator {
     for (var i = 0; i < values.length; i++) {
       for (var j = i + 1; j < values.length; j++) {
         if (values[i] == values[j]) return true;
-        if (values[i].startsWith(values[j]) || values[j].startsWith(values[i])) {
+        if (values[i].startsWith(values[j]) ||
+            values[j].startsWith(values[i])) {
           return true;
         }
       }

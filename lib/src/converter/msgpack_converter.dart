@@ -107,8 +107,10 @@ final class MsgPackToCsvConverter {
         _convertListOfMaps(list.cast<Map>()),
 
       // Array of arrays -> return as rows
-      List<dynamic> list when list.isNotEmpty && list.first is List =>
-        (null, list.map((e) => (e as List).cast<Object?>()).toList()),
+      List<dynamic> list when list.isNotEmpty && list.first is List => (
+          null,
+          list.map((e) => (e as List).cast<Object?>()).toList()
+        ),
 
       // Map with metadata
       Map<dynamic, dynamic> map when map.containsKey('rows') =>
@@ -116,7 +118,6 @@ final class MsgPackToCsvConverter {
 
       // Single map
       Map<dynamic, dynamic> map => _convertSingleMap(map),
-
       _ => (null, <List<Object?>>[]),
     };
   }
@@ -141,8 +142,9 @@ final class MsgPackToCsvConverter {
   (List<String>?, List<List<Object?>>) _convertMetadataFormat(Map map) {
     final headers = (map['headers'] as List?)?.cast<String>();
     final rows = (map['rows'] as List?)
-        ?.map((e) => (e as List).cast<Object?>())
-        .toList() ?? [];
+            ?.map((e) => (e as List).cast<Object?>())
+            .toList() ??
+        [];
 
     return (headers, rows);
   }
@@ -168,7 +170,8 @@ class _MsgPackEncoder {
       case null:
         _buffer.addByte(_MsgPackFormat.nil);
       case bool b:
-        _buffer.addByte(b ? _MsgPackFormat.trueValue : _MsgPackFormat.falseValue);
+        _buffer
+            .addByte(b ? _MsgPackFormat.trueValue : _MsgPackFormat.falseValue);
       case int i:
         _encodeInt(i);
       case double d:
@@ -286,21 +289,21 @@ class _MsgPackEncoder {
 
   List<int> _uint16Bytes(int value) => [value >> 8, value & 0xFF];
   List<int> _uint32Bytes(int value) => [
-    (value >> 24) & 0xFF,
-    (value >> 16) & 0xFF,
-    (value >> 8) & 0xFF,
-    value & 0xFF,
-  ];
+        (value >> 24) & 0xFF,
+        (value >> 16) & 0xFF,
+        (value >> 8) & 0xFF,
+        value & 0xFF,
+      ];
   List<int> _uint64Bytes(int value) => [
-    (value >> 56) & 0xFF,
-    (value >> 48) & 0xFF,
-    (value >> 40) & 0xFF,
-    (value >> 32) & 0xFF,
-    (value >> 24) & 0xFF,
-    (value >> 16) & 0xFF,
-    (value >> 8) & 0xFF,
-    value & 0xFF,
-  ];
+        (value >> 56) & 0xFF,
+        (value >> 48) & 0xFF,
+        (value >> 40) & 0xFF,
+        (value >> 32) & 0xFF,
+        (value >> 24) & 0xFF,
+        (value >> 16) & 0xFF,
+        (value >> 8) & 0xFF,
+        value & 0xFF,
+      ];
   List<int> _int16Bytes(int value) => _uint16Bytes(value);
   List<int> _int32Bytes(int value) => _uint32Bytes(value);
   List<int> _int64Bytes(int value) => _uint64Bytes(value);
@@ -333,7 +336,8 @@ class _MsgPackDecoder {
     }
 
     // Fixarray
-    if (byte >= _MsgPackFormat.fixArrayMin && byte <= _MsgPackFormat.fixArrayMax) {
+    if (byte >= _MsgPackFormat.fixArrayMin &&
+        byte <= _MsgPackFormat.fixArrayMax) {
       return _decodeArray(byte & 0x0F);
     }
 

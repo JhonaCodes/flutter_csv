@@ -2,7 +2,6 @@ import 'csv_settings.dart';
 
 /// Result of CSV settings detection
 final class DetectionResult {
-
   const DetectionResult({
     required this.settings,
     this.needMoreData = false,
@@ -20,7 +19,6 @@ abstract interface class SettingsDetector {
 
 /// Detects CSV settings by finding the first occurrence of possible delimiters
 final class FirstOccurrenceDetector implements SettingsDetector {
-
   const FirstOccurrenceDetector({
     this.fieldDelimiters = const [',', ';', '\t', '|'],
     this.textDelimiters = const ['"', "'"],
@@ -50,7 +48,8 @@ final class FirstOccurrenceDetector implements SettingsDetector {
         textDelimiter: detectedText ?? '"',
         eol: detectedEol ?? '\n',
       ),
-      confidence: _calculateConfidence(detectedField, detectedText, detectedEol),
+      confidence:
+          _calculateConfidence(detectedField, detectedText, detectedEol),
     );
   }
 
@@ -80,7 +79,6 @@ final class FirstOccurrenceDetector implements SettingsDetector {
 
 /// Smart detector that analyzes CSV structure patterns
 final class SmartSettingsDetector implements SettingsDetector {
-
   const SmartSettingsDetector({
     this.fieldDelimiters = const [',', ';', '\t', '|'],
     this.textDelimiters = const ['"', "'"],

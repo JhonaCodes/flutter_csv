@@ -2,13 +2,13 @@ import '../settings/csv_settings.dart';
 
 /// Result of header detection
 final class CsvHeaderDetection {
-
   const CsvHeaderDetection({
     required this.isHeader,
     required this.confidence,
     this.headers,
     this.reasons = const [],
   });
+
   /// Whether the first row is likely a header
   final bool isHeader;
 
@@ -28,7 +28,6 @@ final class CsvHeaderDetection {
 
 /// Detects whether the first row of CSV data is a header row (fixes issue #72)
 final class CsvHeaderDetector {
-
   const CsvHeaderDetector({this.settings = const CsvSettings()});
   final CsvSettings settings;
 
@@ -104,7 +103,8 @@ final class CsvHeaderDetector {
     return CsvHeaderDetection(
       isHeader: isHeader,
       confidence: confidence,
-      headers: isHeader ? firstRow.map((e) => e?.toString() ?? '').toList() : null,
+      headers:
+          isHeader ? firstRow.map((e) => e?.toString() ?? '').toList() : null,
       reasons: reasons,
     );
   }

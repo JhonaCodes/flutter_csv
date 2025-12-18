@@ -51,8 +51,10 @@ final class CsvSanitizer {
         final bool b => b.toString(),
         final DateTime dt => dt.toIso8601String(),
         final Iterable it => it.map(_convertToString).join(','),
-        final Map m =>
-          m.entries.map((e) => '${_convertToString(e.key)}:${_convertToString(e.value)}').join(','),
+        final Map m => m.entries
+            .map((e) =>
+                '${_convertToString(e.key)}:${_convertToString(e.value)}')
+            .join(','),
         _ => value.toString(),
       };
 
@@ -64,7 +66,8 @@ final class CsvSanitizer {
     return str;
   }
 
-  String _applySanitization(String value, Object? originalValue) => switch (mode) {
+  String _applySanitization(String value, Object? originalValue) =>
+      switch (mode) {
         SanitizeMode.quoteAll => _quote(value),
         SanitizeMode.quoteStrings when originalValue is String => _quote(value),
         SanitizeMode.quoteStrings => _quoteIfNeeded(value),

@@ -9,7 +9,6 @@ import '../headers/csv_headers.dart';
 /// This is the main result type from parsing or building CSV data.
 /// Provides methods for export, conversion, and manipulation.
 final class CsvDocument {
-
   /// Creates a document from CSV string
   factory CsvDocument.fromCsv(
     String csv, {
@@ -67,6 +66,7 @@ final class CsvDocument {
       data: dataRows,
     );
   }
+
   /// CSV settings used for this document
   final CsvSettings settings;
 

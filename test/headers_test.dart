@@ -51,7 +51,8 @@ void main() {
         ];
 
         final detection = FlutterCsv.detectHeaders(data);
-        expect(detection.reasons, contains('First row matches header naming patterns'));
+        expect(detection.reasons,
+            contains('First row matches header naming patterns'));
       });
 
       test('detects header patterns (CamelCase)', () {
@@ -83,7 +84,8 @@ void main() {
 
     group('normalize', () {
       test('normalizes headers', () {
-        final headers = CsvHeaders.normalize(['First Name', 'Last Name', 'AGE']);
+        final headers =
+            CsvHeaders.normalize(['First Name', 'Last Name', 'AGE']);
 
         expect(headers, ['first_name', 'last_name', 'age']);
       });

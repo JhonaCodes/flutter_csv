@@ -41,8 +41,7 @@ void main() async {
   log('Headers: ${doc.headers}');
 
   // Access by column name using helper
-  log(
-      'Row 1 "Name" (via getCellByHeader): ${doc.getCellByHeader(0, 'Name')}');
+  log('Row 1 "Name" (via getCellByHeader): ${doc.getCellByHeader(0, 'Name')}');
 
   // Or convert to maps
   if (doc.hasHeaders) {

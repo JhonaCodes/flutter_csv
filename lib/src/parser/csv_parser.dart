@@ -113,7 +113,8 @@ final class CsvParser {
       _ParseState.fieldStart => _handleFieldStart(csv, index, field),
       _ParseState.unquotedField => _handleUnquotedField(csv, index, field),
       _ParseState.quotedField => _handleQuotedField(csv, index, field),
-      _ParseState.quotedFieldEnd => _handleQuotedFieldEnd(csv, index, field, lineNumber, columnNumber),
+      _ParseState.quotedFieldEnd =>
+        _handleQuotedFieldEnd(csv, index, field, lineNumber, columnNumber),
       _ParseState.fieldEnd => _handleFieldStart(csv, index, field),
       _ParseState.rowEnd => _handleFieldStart(csv, index, field),
     };

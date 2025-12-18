@@ -200,7 +200,8 @@ final class CsvBuilder {
   int get rowCount => _rows.length;
 
   /// Gets current column count
-  int get columnCount => _hasHeaders ? _columns.length : (_rows.isEmpty ? 0 : _rows.first.length);
+  int get columnCount =>
+      _hasHeaders ? _columns.length : (_rows.isEmpty ? 0 : _rows.first.length);
 
   /// Whether headers are set
   bool get hasHeaders => _hasHeaders;
