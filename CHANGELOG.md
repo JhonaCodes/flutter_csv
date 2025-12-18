@@ -4,6 +4,7 @@
 
 - Fixed LICENSE to be OSI-approved (MIT).
 - Improved example documentation.
+- CSV -> MCP and MCP -> CSV
 
 ## 1.0.0
 
