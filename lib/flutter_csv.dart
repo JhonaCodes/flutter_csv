@@ -99,6 +99,8 @@ export 'src/headers/csv_headers.dart';
 // Converters
 export 'src/converter/json_converter.dart';
 export 'src/converter/msgpack_converter.dart';
+export 'src/converter/mcp_converter.dart';
+export 'src/converter/mcp_schema_converter.dart';
 
 // Exporter
 export 'src/exporter/csv_exporter.dart';

@@ -61,5 +61,41 @@ void main() async {
     log('MessagePack conversion skipped or failed: $e');
   }
 
+  // 6. MCP (Model Context Protocol) Conversion
+  log('\n--- 6. MCP Conversion ---');
+  final mcpJson =
+      FlutterCsv.toMcp(simpleCsv, uri: 'csv://example', name: 'example.csv');
+  log('CSV to MCP JSON:');
+  log(mcpJson);
+
+  final csvFromMcp = FlutterCsv.fromMcp(mcpJson);
+  log('\nMCP back to CSV length: ${csvFromMcp.length}');
+
+  // 7. Advanced MCP Schemas
+  log('\n--- 7. Advanced MCP Schemas ---');
+
+  // Tools
+  const toolsCsv = 'tool_name,tool_description,arg_name,arg_type,required\n'
+      'weather,Get weather,city,string,true\n'
+      'weather,Get weather,days,number,false';
+  final tools = FlutterCsv.convertMcpTools(toolsCsv);
+  log('Tools converted: ${tools.length}');
+  log('First tool: ${tools.first['name']}');
+
+  // Resources
+  const resourcesCsv = 'uri,name,description,type\n'
+      'file:///a.txt,A,File A,text/plain';
+  final resources = FlutterCsv.convertMcpResources(resourcesCsv);
+  log('Resources converted: ${resources.length}');
+  log('First resource URI: ${resources.first['uri']}');
+
+  // Prompts
+  const promptsCsv = 'prompt_name,role,content\n'
+      'greeting,system,You are helpful\n'
+      'greeting,user,Hello';
+  final prompts = FlutterCsv.convertMcpPrompts(promptsCsv);
+  log('Prompts converted: ${prompts.length}');
+  log('First prompt messages: ${(prompts.first['messages'] as List).length}');
+
   log('\n=== Example Completed ===');
 }

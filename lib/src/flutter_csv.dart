@@ -6,6 +6,8 @@ import 'settings/settings_detector.dart';
 import 'parser/csv_parser.dart';
 import 'writer/csv_writer.dart';
 import 'builder/csv_builder.dart';
+import 'converter/mcp_converter.dart';
+import 'converter/mcp_schema_converter.dart';
 import 'builder/csv_document.dart';
 import 'sanitizer/csv_sanitizer.dart';
 import 'headers/csv_headers.dart';
@@ -386,6 +388,62 @@ final class FlutterCsv {
   }) {
     final converter = CsvToMsgPackConverter(headers: headers);
     return converter.convertWithMetadata(rows);
+  }
+
+  // ============================================================
+  // MCP CONVERSION
+  // ============================================================
+
+  /// Converts CSV string to Model Context Protocol (MCP) JSON format.
+  ///
+  /// Wraps the CSV content in a structure compatible with MCP TextResource:
+  /// `{"mimeType": "text/csv", "text": "..."}`
+  static String toMcp(String csvContent, {String? uri, String? name}) {
+    return const McpConverter().toMcp(csvContent, uri: uri, name: name);
+  }
+
+  /// Extracts CSV content from Model Context Protocol (MCP) JSON format.
+  ///
+  /// Supports unwrapping from simple TextResource or List of resources.
+  static String fromMcp(String mcpJson) {
+    return const McpConverter().fromMcp(mcpJson);
+  }
+
+  /// Converts CSV string to Model Context Protocol (MCP) Map structure.
+  static Map<String, dynamic> toMcpMap(String csvContent,
+      {String? uri, String? name}) {
+    return const McpConverter().toMcpMap(csvContent, uri: uri, name: name);
+  }
+
+  // ============================================================
+  // MCP SCHEMA CONVERSION
+  // ============================================================
+
+  /// Converts CSV to MCP Tools definition (List of Tools)
+  static List<Map<String, dynamic>> convertMcpTools(
+    String csv, {
+    CsvSettings settings = const CsvSettings(),
+  }) {
+    final doc = parseDocument(csv, settings: settings, firstRowIsHeader: true);
+    return const McpSchemaConverter().convertTools(doc);
+  }
+
+  /// Converts CSV to MCP Resources definition (List of Resources)
+  static List<Map<String, dynamic>> convertMcpResources(
+    String csv, {
+    CsvSettings settings = const CsvSettings(),
+  }) {
+    final doc = parseDocument(csv, settings: settings, firstRowIsHeader: true);
+    return const McpSchemaConverter().convertResources(doc);
+  }
+
+  /// Converts CSV to MCP Prompts definition (List of Prompts)
+  static List<Map<String, dynamic>> convertMcpPrompts(
+    String csv, {
+    CsvSettings settings = const CsvSettings(),
+  }) {
+    final doc = parseDocument(csv, settings: settings, firstRowIsHeader: true);
+    return const McpSchemaConverter().convertPrompts(doc);
   }
 
   // ============================================================
