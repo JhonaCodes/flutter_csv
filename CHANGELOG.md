@@ -1,3 +1,10 @@
+# Changelog
+
+## 1.0.1
+
+- Fixed LICENSE to be OSI-approved (MIT).
+- Improved example documentation.
+
 ## 1.0.0
 
 - Initial release.

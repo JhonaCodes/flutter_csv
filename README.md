@@ -3,7 +3,7 @@
 A CSV library for Dart/Flutter with builder pattern, import/export capabilities, header detection, JSON and MessagePack conversion.
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_csv)](https://pub.dev/packages/flutter_csv)
-[![License](https://img.shields.io/badge/license-MIT--Attribution-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 ## Features
 
@@ -23,7 +23,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_csv: ^1.0.0
+  flutter_csv: ^1.0.1
 ```
 
 ## Quick Start
@@ -287,31 +287,33 @@ try {
 ## Key Capabilities
 
 ### CSV Handling
+
 - **Cross-platform EOL Support**: Handles `\n`, `\r\n`, and `\r` line endings seamlessly across all platforms
 - **Smart Header Detection**: Automatically identifies header rows using pattern analysis and type inference
 - **Empty Line Management**: Configurable behavior for empty lines - skip or preserve as needed
 - **International Number Formats**: Full support for European decimal separators (comma) and custom formats
 
 ### Data Integrity
+
 - **Proper Quote Escaping**: RFC 4180 compliant escaping with doubled quotes inside quoted fields
 - **Special Character Handling**: Correctly handles commas, newlines, and quotes within field values
 - **Type Preservation**: Optional number parsing while maintaining string integrity when needed
 
 ### Performance & Compatibility
+
 - **Large File Support**: Stream processing and chunked exports for files of any size
 - **Browser Compatibility**: UTF-8 BOM support for proper encoding in Safari and other browsers
 - **Memory Efficient**: Lazy evaluation and streaming for minimal memory footprint
 
 ### Flexibility
+
 - **Multiple Format Presets**: RFC 4180, Excel, European CSV, TSV out of the box
 - **Customizable Settings**: Full control over delimiters, quotes, EOL, and parsing behavior
 - **Extensible Architecture**: Clean separation of concerns for easy customization
 
 ## License
 
-This project is licensed under the MIT License with Attribution Requirement - see the [LICENSE](LICENSE) file for details.
-
-**Attribution Required**: If you use this library in your project, you must include attribution to the original author (JhonaCodes) in your project's documentation, README, or about section.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
