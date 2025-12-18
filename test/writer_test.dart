@@ -177,7 +177,7 @@ void main() {
         expect(csv, contains('2024-01-15'));
       });
 
-      test('handles European decimal separator (fixes issue #60)', () {
+      test('handles European decimal separator', () {
         final csv = FlutterCsv.write([
           [1.5, 2.5],
         ], settings: CsvSettings.european);
@@ -210,28 +210,28 @@ void main() {
   group('CsvSanitizer', () {
     group('sanitize modes', () {
       test('minimal mode only quotes when necessary', () {
-        final sanitizer = const CsvSanitizer(mode: SanitizeMode.minimal);
+        const sanitizer = CsvSanitizer(mode: SanitizeMode.minimal);
 
         expect(sanitizer.sanitize('hello'), 'hello');
         expect(sanitizer.sanitize('hello,world'), '"hello,world"');
       });
 
       test('quoteStrings mode quotes all strings', () {
-        final sanitizer = const CsvSanitizer(mode: SanitizeMode.quoteStrings);
+        const sanitizer = CsvSanitizer(mode: SanitizeMode.quoteStrings);
 
         expect(sanitizer.sanitize('hello'), '"hello"');
         expect(sanitizer.sanitize(123), '123');
       });
 
       test('quoteAll mode quotes everything', () {
-        final sanitizer = const CsvSanitizer(mode: SanitizeMode.quoteAll);
+        const sanitizer = CsvSanitizer(mode: SanitizeMode.quoteAll);
 
         expect(sanitizer.sanitize('hello'), '"hello"');
         expect(sanitizer.sanitize(123), '"123"');
       });
 
       test('escape mode escapes special chars', () {
-        final sanitizer = const CsvSanitizer(mode: SanitizeMode.escape);
+        const sanitizer = CsvSanitizer(mode: SanitizeMode.escape);
 
         expect(sanitizer.sanitize('a,b'), r'a\,b');
         expect(sanitizer.sanitize('a"b'), r'a\"b');
@@ -240,14 +240,14 @@ void main() {
 
     group('row sanitization', () {
       test('sanitizes entire row', () {
-        final sanitizer = const CsvSanitizer();
+        const sanitizer = CsvSanitizer();
         final result = sanitizer.sanitizeRow(['hello', 'a,b', 123]);
 
         expect(result, ['hello', '"a,b"', '123']);
       });
 
       test('sanitizes all data', () {
-        final sanitizer = const CsvSanitizer();
+        const sanitizer = CsvSanitizer();
         final result = sanitizer.sanitizeAll([
           ['a', 'b,c'],
           [1, 2],

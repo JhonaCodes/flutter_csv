@@ -17,7 +17,7 @@ enum SanitizeMode {
 
 /// Elegant sanitizer for CSV values using modern Dart patterns.
 ///
-/// Handles escaping (fixes issue #59) and proper quoting (fixes issue #6).
+/// Handles escaping and proper quoting.
 final class CsvSanitizer {
   const CsvSanitizer({
     this.settings = const CsvSettings(),

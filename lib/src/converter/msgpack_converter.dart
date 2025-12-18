@@ -45,13 +45,12 @@ class _MsgPackFormat {
 /// MessagePack is a fast, compact binary serialization format.
 /// This allows efficient storage and transmission of CSV data.
 final class CsvToMsgPackConverter {
-  final CsvSettings settings;
-  final List<String>? headers;
-
   const CsvToMsgPackConverter({
     this.settings = const CsvSettings(),
     this.headers,
   });
+  final CsvSettings settings;
+  final List<String>? headers;
 
   /// Converts CSV rows to MessagePack bytes
   Uint8List convert(List<List<Object?>> rows) {
@@ -92,9 +91,8 @@ final class CsvToMsgPackConverter {
 
 /// Converts MessagePack binary data to CSV format
 final class MsgPackToCsvConverter {
-  final CsvSettings settings;
-
   const MsgPackToCsvConverter({this.settings = const CsvSettings()});
+  final CsvSettings settings;
 
   /// Converts MessagePack bytes to CSV data
   /// Returns (headers, rows) tuple
@@ -103,21 +101,21 @@ final class MsgPackToCsvConverter {
 
     return switch (decoded) {
       // Array of maps -> extract headers and rows
-      List<dynamic> list when list.isNotEmpty && list.first is Map =>
+      final List<dynamic> list when list.isNotEmpty && list.first is Map =>
         _convertListOfMaps(list.cast<Map>()),
 
       // Array of arrays -> return as rows
-      List<dynamic> list when list.isNotEmpty && list.first is List => (
+      final List<dynamic> list when list.isNotEmpty && list.first is List => (
           null,
           list.map((e) => (e as List).cast<Object?>()).toList()
         ),
 
       // Map with metadata
-      Map<dynamic, dynamic> map when map.containsKey('rows') =>
+      final Map<dynamic, dynamic> map when map.containsKey('rows') =>
         _convertMetadataFormat(map),
 
       // Single map
-      Map<dynamic, dynamic> map => _convertSingleMap(map),
+      final Map<dynamic, dynamic> map => _convertSingleMap(map),
       _ => (null, <List<Object?>>[]),
     };
   }
@@ -169,18 +167,18 @@ class _MsgPackEncoder {
     switch (value) {
       case null:
         _buffer.addByte(_MsgPackFormat.nil);
-      case bool b:
+      case final bool b:
         _buffer
             .addByte(b ? _MsgPackFormat.trueValue : _MsgPackFormat.falseValue);
-      case int i:
+      case final int i:
         _encodeInt(i);
-      case double d:
+      case final double d:
         _encodeDouble(d);
-      case String s:
+      case final String s:
         _encodeString(s);
-      case List l:
+      case final List l:
         _encodeList(l);
-      case Map m:
+      case final Map m:
         _encodeMap(m);
       default:
         _encodeString(value.toString());

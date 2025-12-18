@@ -1,7 +1,6 @@
 /// Configuration settings for CSV parsing and generation.
 ///
 /// This class provides flexible configuration for CSV operations,
-/// addressing common issues like EOL handling (fixes issue #74, #4, #30).
 final class CsvSettings {
   const CsvSettings({
     this.fieldDelimiter = ',',
@@ -26,7 +25,7 @@ final class CsvSettings {
   /// End text quote character (can differ from textDelimiter for asymmetric quotes)
   final String textEndDelimiter;
 
-  /// End of line character (default: '\n' - fixes issue #74)
+  /// End of line character (default: '\n')
   final String eol;
 
   /// Whether to parse numeric strings into int/double
@@ -38,13 +37,13 @@ final class CsvSettings {
   /// Value to use for null fields
   final String? nullValue;
 
-  /// Decimal separator for number parsing (fixes issue #60)
+  /// Decimal separator for number parsing
   final String decimalSeparator;
 
   /// Whether to trim whitespace from fields
   final bool trimFields;
 
-  /// Whether to skip empty lines (fixes issue #33)
+  /// Whether to skip empty lines
   final bool skipEmptyLines;
 
   /// Whether to allow invalid CSV (lenient parsing)

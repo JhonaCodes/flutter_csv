@@ -108,7 +108,7 @@ final class CsvExporter {
     );
   }
 
-  /// Exports for web download (Safari-compatible - fixes issue #48)
+  /// Exports for web download
   static ExportResult exportForWeb(
     CsvDocument document, {
     CsvExportFormat format = CsvExportFormat.csv,
@@ -121,7 +121,7 @@ final class CsvExporter {
     );
   }
 
-  /// Exports document in chunks for large files (fixes issue #73)
+  /// Exports document in chunks for large files
   static Iterable<String> exportInChunks(
     CsvDocument document, {
     int chunkSize = 1000,

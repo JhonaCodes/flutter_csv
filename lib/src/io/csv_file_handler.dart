@@ -24,23 +24,21 @@ enum CsvFileFormat {
 
 /// Result of a file operation
 final class FileOperationResult {
-  final bool success;
-  final String? path;
-  final int? bytesWritten;
-  final String? error;
-
   const FileOperationResult({
     required this.success,
     this.path,
     this.bytesWritten,
     this.error,
   });
-
   factory FileOperationResult.success(String path, int bytes) =>
       FileOperationResult(success: true, path: path, bytesWritten: bytes);
 
   factory FileOperationResult.failure(String error) =>
       FileOperationResult(success: false, error: error);
+  final bool success;
+  final String? path;
+  final int? bytesWritten;
+  final String? error;
 }
 
 /// Handles file I/O operations for CSV data.

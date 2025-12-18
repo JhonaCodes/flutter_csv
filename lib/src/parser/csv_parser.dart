@@ -13,12 +13,9 @@ enum _ParseState {
 
 /// High-performance CSV parser with support for multi-character delimiters.
 ///
-/// Fixes issues: #69 (iOS compatibility), #70 (parsing accuracy),
-/// #33 (empty newlines), #30 (extra CR).
 final class CsvParser {
-  final CsvSettings settings;
-
   const CsvParser({this.settings = const CsvSettings()});
+  final CsvSettings settings;
 
   /// Parses a CSV string into a list of rows
   List<List<dynamic>> parse(String csv) {
@@ -328,12 +325,6 @@ final class CsvParser {
 
 /// Result of processing a single character
 final class _ParseResult {
-  final _ParseState state;
-  final int nextIndex;
-  final bool fieldComplete;
-  final bool rowComplete;
-  final CsvException? error;
-
   const _ParseResult({
     required this.state,
     required this.nextIndex,
@@ -341,4 +332,10 @@ final class _ParseResult {
     this.rowComplete = false,
     this.error,
   });
+
+  final _ParseState state;
+  final int nextIndex;
+  final bool fieldComplete;
+  final bool rowComplete;
+  final CsvException? error;
 }

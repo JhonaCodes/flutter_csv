@@ -54,8 +54,9 @@ enum SettingsError {
       'Delimiters must be distinct and cannot be prefixes of each other'),
   emptyDelimiter('Delimiter cannot be empty');
 
-  final String message;
   const SettingsError(this.message);
+
+  final String message;
 
   InvalidSettingsException toException() => InvalidSettingsException(message);
 }

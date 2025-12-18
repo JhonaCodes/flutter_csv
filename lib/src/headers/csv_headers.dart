@@ -26,7 +26,7 @@ final class CsvHeaderDetection {
       'CsvHeaderDetection(isHeader: $isHeader, confidence: ${(confidence * 100).toStringAsFixed(1)}%)';
 }
 
-/// Detects whether the first row of CSV data is a header row (fixes issue #72)
+/// Detects whether the first row of CSV data is a header row
 final class CsvHeaderDetector {
   const CsvHeaderDetector({this.settings = const CsvSettings()});
   final CsvSettings settings;

@@ -77,7 +77,7 @@ void main() {
     });
 
     group('web export', () {
-      test('exports for web compatibility (fixes issue #48)', () {
+      test('exports for web compatibility', () {
         final result = document.exportForWeb();
 
         expect(result, isNotNull);
@@ -85,7 +85,7 @@ void main() {
       });
     });
 
-    group('chunked export (fixes issue #73)', () {
+    group('chunked export', () {
       late CsvDocument largeDocument;
 
       setUp(() {

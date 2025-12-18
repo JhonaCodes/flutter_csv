@@ -118,7 +118,7 @@ void main() {
         ]);
       });
 
-      test('parses mixed line endings (fixes issue #30)', () {
+      test('parses mixed line endings', () {
         const csv = 'a,b,c\n1,2,3\r\n4,5,6';
         final result = FlutterCsv.parse(csv);
 
@@ -152,7 +152,7 @@ void main() {
         ]);
       });
 
-      test('handles European decimal separator (fixes issue #60)', () {
+      test('handles European decimal separator', () {
         const csv = '1;2,5;text';
         final result = FlutterCsv.parse(
           csv,
@@ -196,7 +196,7 @@ void main() {
         ]);
       });
 
-      test('handles trailing newlines (fixes issue #33)', () {
+      test('handles trailing newlines', () {
         const csv = 'a,b,c\n1,2,3\n';
         final result = FlutterCsv.parse(csv);
 
