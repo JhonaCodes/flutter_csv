@@ -13,6 +13,7 @@ A CSV library for Dart/Flutter with builder pattern, import/export capabilities,
 - **Multiple Formats**: Support for CSV, TSV, European CSV, RFC 4180, Excel
 - **JSON Conversion**: Seamless CSV ↔ JSON conversion
 - **MessagePack**: Binary serialization with CSV ↔ MsgPack conversion
+- **MCP Integration**: Full Model Context Protocol support with Tools, Resources, and Prompts conversion
 - **File I/O**: Built-in file save/load operations
 - **Large Files**: Chunked processing and streaming for large files
 - **Web Compatible**: Browser-friendly exports with BOM support
@@ -23,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_csv: ^1.0.1
+  flutter_csv: ^1.0.2
 ```
 
 ## Quick Start
@@ -123,7 +124,8 @@ final csv = FlutterCsv.fromMaps([
 
 ### MessagePack Conversion
 
-```dart
+**(Note: MessagePack is a binary serialization format and is distinct from Model Context Protocol (MCP).)**
+
 // CSV to MessagePack
 final bytes = FlutterCsv.toMsgPack(csvString);
 
@@ -132,6 +134,158 @@ final csv = FlutterCsv.fromMsgPack(bytes);
 
 // MessagePack to Document
 final doc = FlutterCsv.parseMsgPack(bytes);
+
+### Model Context Protocol (MCP) Integration
+
+This library provides utilities to integrate CSV data with the Model Context Protocol (MCP), a JSON-based protocol often used for exchanging data as Resources, Tools, or Prompts, especially in AI model configurations.
+
+#### Basic MCP TextResource Conversion
+
+The `McpConverter` allows for simple conversion between CSV strings and MCP TextResource JSON objects, where the CSV content is embedded as a `text` field within a JSON structure.
+
+```dart
+// CSV to MCP TextResource JSON string
+final mcpJson = FlutterCsv.toMcp(
+  'Name,Age\nJohn,30',
+  uri: 'http://example.com/data.csv',
+  name: 'UserData',
+);
+print(mcpJson);
+// Output:
+// {
+//   "uri": "http://example.com/data.csv",
+//   "name": "UserData",
+//   "mimeType": "text/csv",
+//   "text": "Name,Age\\nJohn,30"
+// }
+
+// CSV to MCP TextResource Map (without JSON encoding)
+final mcpMap = FlutterCsv.toMcpMap(
+  'Name,Age\nJohn,30',
+  uri: 'http://example.com/data.csv',
+  name: 'UserData',
+);
+print(mcpMap);
+// Output: Map<String, dynamic>
+
+// MCP TextResource JSON to CSV
+final csv = FlutterCsv.fromMcp(mcpJson);
+print(csv);
+// Output:
+// Name,Age
+// John,30
+```
+
+#### Advanced MCP Schema Conversion
+
+The `McpSchemaConverter` enables more structured conversions, allowing you to transform CSV documents into MCP definitions for Tools (with JSON Schema arguments), Resources, and Prompts.
+
+**1. CSV to MCP Tools**
+
+Converts a CSV string into a list of MCP Tool definitions. The CSV must have headers: `tool_name`, `tool_description`, `arg_name`, `arg_type` (string, number, boolean, object, array), and `required` (true/false).
+
+```dart
+final toolsCsv = """
+tool_name,tool_description,arg_name,arg_type,required
+get_weather,Fetches current weather for a location,location,string,true
+get_weather,Fetches current weather for a location,unit,string,false
+send_email,Sends an email to a recipient,to,string,true
+send_email,Sends an email to a recipient,subject,string,false
+send_email,Sends an email to a recipient,body,string,true
+""";
+
+final mcpTools = FlutterCsv.convertMcpTools(toolsCsv);
+print(mcpTools);
+// Output:
+// [
+//   {
+//     name: get_weather,
+//     description: Fetches current weather for a location,
+//     inputSchema: {
+//       type: object,
+//       properties: {
+//         location: {type: string},
+//         unit: {type: string}
+//       },
+//       required: [location]
+//     }
+//   },
+//   {
+//     name: send_email,
+//     description: Sends an email to a recipient,
+//     inputSchema: {
+//       type: object,
+//       properties: {
+//         to: {type: string},
+//       subject: {type: string},
+//         body: {type: string}
+//       },
+//       required: [to, body]
+//     }
+//   }
+// ]
+```
+
+**2. CSV to MCP Resources**
+
+Converts a CSV string into a list of MCP Resource definitions. The CSV must have headers: `uri`, `type` (optional, defaults to `text/plain`), `description` (optional), and `name` (optional).
+
+```dart
+final resourcesCsv = """
+uri,type,description,name
+http://example.com/doc1,text/plain,First document,Document1
+http://example.com/image1,image/jpeg,A sample image,Image1
+""";
+
+final mcpResources = FlutterCsv.convertMcpResources(resourcesCsv);
+print(mcpResources);
+// Output:
+// [
+//   {
+//     uri: http://example.com/doc1,
+//     mimeType: text/plain,
+//     description: First document,
+//     name: Document1
+//   },
+//   {
+//     uri: http://example.com/image1,
+//     mimeType: image/jpeg,
+//     description: A sample image,
+//     name: Image1
+//   }
+// ]
+```
+
+**3. CSV to MCP Prompts**
+
+Converts a CSV string into a list of MCP Prompt definitions. The CSV must have headers: `prompt_name`, `role` (user, assistant, system), and `content`.
+
+```dart
+final promptsCsv = """
+prompt_name,role,content
+greeting_prompt,user,Hello, how are you?
+greeting_prompt,assistant,I am fine, thank you. How can I help?
+summarize_text,user,Please summarize the following text:
+""";
+
+final mcpPrompts = FlutterCsv.convertMcpPrompts(promptsCsv);
+print(mcpPrompts);
+// Output:
+// [
+//   {
+//     name: greeting_prompt,
+//     messages: [
+//       {role: user, content: {type: text, text: Hello, how are you?}},
+//       {role: assistant, content: {type: text, text: I am fine, thank you. How can I help?}}
+//     ]
+//   },
+//   {
+//     name: summarize_text,
+//     messages: [
+//       {role: user, content: {type: text, text: Please summarize the following text:}}
+//     ]
+//   }
+// ]
 ```
 
 ### File Operations

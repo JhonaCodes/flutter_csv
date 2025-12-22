@@ -1,8 +1,15 @@
 name: flutter_csv
 description: A CSV library for Dart/Flutter with builder pattern, import/export capabilities, header detection, and JSON conversion.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/JhonaCodes/flutter_csv
 repository: https://github.com/JhonaCodes/flutter_csv
+
+topics:
+  - csv
+  - parser
+  - serialization
+  - converter
+  - data
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
